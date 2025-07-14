@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, MapPin, Clock, Shield, Star, FileText, Home, Building, Heart, CheckCircle, ArrowRight, Mail, Send, MessageCircle } from 'lucide-react';
+import { Phone, MapPin, Clock, Shield, Star, FileText, Home, Building, Heart, CheckCircle, ArrowRight, Mail, Send, MessageCircle, AlertCircle } from 'lucide-react';
 
 const Espanol = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +15,10 @@ const Espanol = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<{
+    success?: boolean;
+    message?: string;
+  }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -26,62 +30,40 @@ const Espanol = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFormStatus({});
 
     try {
-      // Create the email content in Spanish
-      const emailContent = {
-        to: 'contact@djb-mobile-notary.com',
-        subject: `Solicitud de Servicio Notarial de ${formData.name}`,
-        html: `
-          <h2>Nueva Solicitud de Servicio Notarial</h2>
-          
-          <h3>Información del Cliente:</h3>
-          <ul>
-            <li><strong>Nombre:</strong> ${formData.name}</li>
-            <li><strong>Correo Electrónico:</strong> ${formData.email}</li>
-            <li><strong>Teléfono:</strong> ${formData.phone}</li>
-          </ul>
-          
-          <h3>Detalles del Servicio:</h3>
-          <ul>
-            <li><strong>Servicio Necesario:</strong> ${formData.service}</li>
-            <li><strong>Ubicación Preferida:</strong> ${formData.location}</li>
-            <li><strong>Fecha Preferida:</strong> ${formData.date}</li>
-            <li><strong>Hora Preferida:</strong> ${formData.time}</li>
-          </ul>
-          
-          <h3>Mensaje Adicional:</h3>
-          <p>${formData.message || 'No se proporcionó mensaje adicional.'}</p>
-          
-          <hr>
-          <p><em>Esta solicitud fue enviada a través del formulario de contacto en español en djb-mobile-notary.com</em></p>
-        `,
-        text: `
-Nueva Solicitud de Servicio Notarial
-
-Información del Cliente:
-- Nombre: ${formData.name}
-- Correo Electrónico: ${formData.email}
-- Teléfono: ${formData.phone}
-
-Detalles del Servicio:
-- Servicio Necesario: ${formData.service}
-- Ubicación Preferida: ${formData.location}
-- Fecha Preferida: ${formData.date}
-- Hora Preferida: ${formData.time}
-
-Mensaje Adicional:
-${formData.message || 'No se proporcionó mensaje adicional.'}
-
----
-Esta solicitud fue enviada a través del formulario de contacto en español en djb-mobile-notary.com
-        `
-      };
-
-      // Simulate form submission (same approach as Contact page)
-      setTimeout(() => {
-        // Show success message in Spanish
-        alert('¡Gracias por su mensaje! Me pondré en contacto con usted pronto para confirmar los detalles de su cita.');
+      // Create form data for Web3Forms
+      const formDataToSend = new FormData();
+      
+      // Add your Web3Forms access key - replace with your actual key from web3forms.com
+      formDataToSend.append('access_key', '59278094-be07-4618-828f-90ad1190bc64');
+      
+      // Add form fields
+      Object.entries(formData).forEach(([key, value]) => {
+        formDataToSend.append(key, value);
+      });
+      
+      // Add subject in Spanish
+      formDataToSend.append('subject', `Solicitud de Servicio Notarial de ${formData.name}`);
+      
+      // Add from_name for better email formatting
+      formDataToSend.append('from_name', 'Daniel J. Bolanos Mobile Notary Website (Español)');
+      
+      // Send to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formDataToSend
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Success
+        setFormStatus({
+          success: true,
+          message: '¡Gracias por su mensaje! Me pondré en contacto con usted pronto para confirmar los detalles de su cita.'
+        });
         
         // Reset form
         setFormData({
@@ -94,15 +76,24 @@ Esta solicitud fue enviada a través del formulario de contacto en español en d
           time: '',
           message: ''
         });
-        
-        setIsSubmitting(false);
-      }, 1000);
+      } else {
+        // Error
+        setFormStatus({
+          success: false,
+          message: data.message || 'Hubo un error al enviar su solicitud. Por favor intente de nuevo o llame directamente.'
+        });
+      }
 
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Hubo un error al enviar su solicitud. Por favor llame directamente al (914) 619-8328.');
+      setFormStatus({
+        success: false,
+        message: 'Hubo un error al enviar su solicitud. Por favor llame directamente al (914) 619-8328.'
+      });
       setIsSubmitting(false);
     }
+    
+    setIsSubmitting(false);
   };
 
   const faqItems = [
@@ -841,6 +832,20 @@ Esta solicitud fue enviada a través del formulario de contacto en español en d
                 <p className="text-sm text-gray-600 text-center">
                   Normalmente respondo dentro de 4 horas para confirmar los detalles de su cita.
                 </p>
+                
+                {/* Form Status Message */}
+                {formStatus.message && (
+                  <div className={`mt-4 p-4 rounded-lg ${formStatus.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                    <div className="flex items-center space-x-2">
+                      {formStatus.success ? (
+                        <CheckCircle className="h-5 w-5 text-green-500" />
+                      ) : (
+                        <AlertCircle className="h-5 w-5 text-red-500" />
+                      )}
+                      <p>{formStatus.message}</p>
+                    </div>
+                  </div>
+                )}
               </form>
             </div>
           </div>

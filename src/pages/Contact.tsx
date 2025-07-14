@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Calendar, Send, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Calendar, Send, MessageCircle, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +14,10 @@ const Contact = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<{
+    success?: boolean;
+    message?: string;
+  }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -25,99 +29,40 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFormStatus({});
 
     try {
-      // Create the email content
-      const emailContent = {
-        to: 'contact@djb-mobile-notary.com',
-        subject: `Notary Service Request from ${formData.name}`,
-        html: `
-          <h2>New Notary Service Request</h2>
-          
-          <h3>Client Information:</h3>
-          <ul>
-            <li><strong>Name:</strong> ${formData.name}</li>
-            <li><strong>Email:</strong> ${formData.email}</li>
-            <li><strong>Phone:</strong> ${formData.phone}</li>
-          </ul>
-          
-          <h3>Service Details:</h3>
-          <ul>
-            <li><strong>Service Needed:</strong> ${formData.service}</li>
-            <li><strong>Preferred Location:</strong> ${formData.location}</li>
-            <li><strong>Preferred Date:</strong> ${formData.date}</li>
-            <li><strong>Preferred Time:</strong> ${formData.time}</li>
-          </ul>
-          
-          <h3>Additional Message:</h3>
-          <p>${formData.message || 'No additional message provided.'}</p>
-          
-          <hr>
-          <p><em>This request was submitted through the contact form on contact@djb-mobile-notary.com</em></p>
-        `,
-        text: `
-New Notary Service Request
-
-Client Information:
-- Name: ${formData.name}
-- Email: ${formData.email}
-- Phone: ${formData.phone}
-
-Service Details:
-- Service Needed: ${formData.service}
-- Preferred Location: ${formData.location}
-- Preferred Date: ${formData.date}
-- Preferred Time: ${formData.time}
-
-Additional Message:
-${formData.message || 'No additional message provided.'}
-
----
-This request was submitted through the contact form on contact@djb-mobile-notary.com
-        `
-      };
-
-      // For now, we'll use a form submission approach that can be handled by a backend service
-      // This creates a hidden form and submits it to a service like Formspree, Netlify Forms, or similar
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = 'https://formspree.io/f/contact@djb-mobile-notary.com'; // This would need to be configured
-      form.style.display = 'none';
-
+      // Create form data for Web3Forms
+      const formDataToSend = new FormData();
+      
+      // Add your Web3Forms access key - replace with your actual key from web3forms.com
+      formDataToSend.append('access_key', '59278094-be07-4618-828f-90ad1190bc64');
+      
       // Add form fields
       Object.entries(formData).forEach(([key, value]) => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = value;
-        form.appendChild(input);
+        formDataToSend.append(key, value);
       });
-
-      // Add email field for the recipient
-      const emailInput = document.createElement('input');
-      emailInput.type = 'hidden';
-      emailInput.name = '_to';
-      emailInput.value = 'contact@djb-mobile-notary.com';
-      form.appendChild(emailInput);
-
-      // Add subject field
-      const subjectInput = document.createElement('input');
-      subjectInput.type = 'hidden';
-      subjectInput.name = '_subject';
-      subjectInput.value = `Notary Service Request from ${formData.name}`;
-      form.appendChild(subjectInput);
-
-      document.body.appendChild(form);
       
-      // Since we can't actually send emails from the frontend without a backend service,
-      // we'll simulate the submission and show a success message
-      // In a real implementation, you would need to set up a backend service or use a service like Formspree
+      // Add subject
+      formDataToSend.append('subject', `Notary Service Request from ${formData.name}`);
       
-      setTimeout(() => {
-        document.body.removeChild(form);
-        
-        // Show success message
-        alert('Thank you for your message! I will contact you shortly to confirm your appointment details.');
+      // Add from_name for better email formatting
+      formDataToSend.append('from_name', 'Daniel J. Bolanos Mobile Notary Website');
+      
+      // Send to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formDataToSend
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Success
+        setFormStatus({
+          success: true,
+          message: 'Thank you for your message! I will contact you shortly to confirm your appointment details.'
+        });
         
         // Reset form
         setFormData({
@@ -130,15 +75,23 @@ This request was submitted through the contact form on contact@djb-mobile-notary
           time: '',
           message: ''
         });
-        
-        setIsSubmitting(false);
-      }, 1000);
+      } else {
+        // Error
+        setFormStatus({
+          success: false,
+          message: data.message || 'Something went wrong. Please try again or call directly.'
+        });
+      }
 
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('There was an error submitting your request. Please try calling (914) 619-8328 directly.');
-      setIsSubmitting(false);
+      setFormStatus({
+        success: false,
+        message: 'There was an error submitting your request. Please try calling (914) 619-8328 directly.'
+      });
     }
+    
+    setIsSubmitting(false);
   };
 
   const certifications = [
@@ -463,8 +416,22 @@ This request was submitted through the contact form on contact@djb-mobile-notary
                 </button>
 
                 <p className="text-sm text-gray-600 text-center">
-                  I'll typically respond within 4 hours to confirm your appointment details.
+                  I typically respond within 4 hours to confirm your appointment details.
                 </p>
+                
+                {/* Form Status Message */}
+                {formStatus.message && (
+                  <div className={`mt-4 p-4 rounded-lg ${formStatus.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                    <div className="flex items-center space-x-2">
+                      {formStatus.success ? (
+                        <CheckCircle className="h-5 w-5 text-green-500" />
+                      ) : (
+                        <AlertCircle className="h-5 w-5 text-red-500" />
+                      )}
+                      <p>{formStatus.message}</p>
+                    </div>
+                  </div>
+                )}
               </form>
             </div>
           </div>
