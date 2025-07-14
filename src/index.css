@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base text color for better contrast */
+@layer base {
+  body {
+    @apply text-gray-800;
+  }
+  
+  p {
+    @apply text-gray-800;
+  }
+  
+  /* Ensure links in paragraphs are underlined for better visibility */
+  p a {
+    @apply underline;
+  }
+}
+
+/* Accessibility Features */
+:focus {
+  outline: 3px solid #0d9488;
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* High contrast mode improvements */
+@media (forced-colors: active) {
+  button, a {
+    border: 1px solid transparent;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
