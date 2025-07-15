@@ -35,7 +35,7 @@ const Contact = () => {
       // Create form data for Web3Forms
       const formDataToSend = new FormData();
       
-      // Add your Web3Forms access key - replace with your actual key from web3forms
+      // Add your Web3Forms access key - replace with your actual key from web3forms.com
       formDataToSend.append('access_key', '66511e26-20ae-4532-a9d6-91fd64bedcde');
       
       // Add form fields
@@ -50,7 +50,7 @@ const Contact = () => {
       formDataToSend.append('from_name', 'Daniel J. Bolanos Mobile Notary Website');
       
       // Send to Web3Forms
-      const response = await fetch('https://api.web3forms/submit', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: formDataToSend
       });
