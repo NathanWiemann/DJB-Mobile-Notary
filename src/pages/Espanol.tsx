@@ -37,7 +37,7 @@ const Espanol = () => {
       const formDataToSend = new FormData();
       
       // Add your Web3Forms access key - replace with your actual key from web3forms.com
-      formDataToSend.append('access_key', '59278094-be07-4618-828f-90ad1190bc64');
+      formDataToSend.append('access_key', '66511e26-20ae-4532-a9d6-91fd64bedcde');
       
       // Add form fields
       Object.entries(formData).forEach(([key, value]) => {
