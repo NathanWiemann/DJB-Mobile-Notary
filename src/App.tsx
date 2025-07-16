@@ -46,6 +46,9 @@ import RemoteOnlineNotary from './pages/services/RemoteOnlineNotary';
 import Verifications from './pages/services/Verifications';
 import Protests from './pages/services/Protests';
 
+// 404 Page
+import NotFound from './pages/NotFound';
+
 // Component to scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -108,6 +111,9 @@ function App() {
             <Route path="/services/remote-online-notary" element={<RemoteOnlineNotary />} />
             <Route path="/services/verifications" element={<Verifications />} />
             <Route path="/services/protests" element={<Protests />} />
+            
+            {/* 404 Page - This must be the last route */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

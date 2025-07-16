@@ -306,7 +306,7 @@ const MobileNotary = () => {
               <div>
                 <h4 className="font-bold text-gray-900 mb-2">Travel Fees</h4>
                 <ul className="space-y-1 text-gray-600 text-sm">
-                  <li>• Within 15 miles: $45 standard fee</li>
+                  <li>• Within 15 miles: $55 standard fee</li>
                   <li>• 15+ miles: Custom quote provided</li>
                   <li>• No extra charge for evenings/weekends</li>
                 </ul>

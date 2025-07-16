@@ -131,7 +131,7 @@ const About = () => {
 
             <div className="relative">
               <img 
-                src="/daniel-bolanos-notary-profile-photo-bridge copy.webp" 
+                src="/daniel-bolanos-notary-about-photo.webp" 
                 alt="Daniel J. Bolanos - Professional Mobile Notary" 
                 className="w-full max-w-md mx-auto h-auto object-cover rounded-2xl shadow-xl"
               />
@@ -147,28 +147,38 @@ const About = () => {
       {/* Personal Story Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Why I Became a Local Notary Public
             </h2>
           </div>
 
-          <div className="prose prose-lg mx-auto text-gray-600">
-            <p className="text-lg leading-relaxed mb-8">
-              I started my notary practice because I saw a need for more personal, attentive service in the notarization industry. Too often, people feel rushed or confused during important document signings. I believe you deserve better.
-            </p>
-
-            <p className="text-lg leading-relaxed mb-8">
-              As a veteran of the Pennsylvania National Guard, I've always been committed to serving others with integrity and professionalism. That same sense of duty now drives the way I approach notary work—ensuring every client feels respected, informed, and confident in the process.
-            </p>
-
-            <p className="text-lg leading-relaxed mb-8">
-              When you work with me, you're getting someone who will take the time to explain the process, answer your questions, and ensure that everything is completed correctly. I understand that the documents I notarize often represent significant moments—buying a home, planning for the future, or handling important business matters.
-            </p>
-
-            <p className="text-lg leading-relaxed mb-8">
-              My goal is simple: to provide you with professional, reliable notary services while making the experience as comfortable and convenient as possible. Whether you need me to come to your home, office, or meet you at a location that works for you, I'm here to help.
-            </p>
+          <div className="flex flex-col md:flex-row gap-12 items-start">
+            <div className="md:order-1 order-2 prose prose-lg text-gray-600 md:w-3/5">
+              <p className="text-lg leading-relaxed mb-8">
+                I started my notary practice because I saw a need for more personal, attentive service in the notarization industry. Too often, people feel rushed or confused during important document signings. I believe you deserve better.
+              </p>
+  
+              <p className="text-lg leading-relaxed mb-8">
+                As a veteran of the Pennsylvania National Guard, I've always been committed to serving others with integrity and professionalism. That same sense of duty now drives the way I approach notary work—ensuring every client feels respected, informed, and confident in the process.
+              </p>
+  
+              <p className="text-lg leading-relaxed mb-8">
+                When you work with me, you're getting someone who will take the time to explain the process, answer your questions, and ensure that everything is completed correctly. I understand that the documents I notarize often represent significant moments—buying a home, planning for the future, or handling important business matters.
+              </p>
+  
+              <p className="text-lg leading-relaxed">
+                My goal is simple: to provide you with professional, reliable notary services while making the experience as comfortable and convenient as possible. Whether you need me to come to your home, office, or meet you at a location that works for you, I'm here to help.
+              </p>
+            </div>
+            
+            <div className="md:w-2/5 md:order-2 order-1 mb-8 md:mb-0 md:self-center">
+              <img 
+                src="/daniel-bolanos-notary-about-photo-2.webp" 
+                alt="Daniel J. Bolanos - Professional Mobile Notary" 
+                className="w-full rounded-2xl shadow-xl"
+              />
+            </div>
           </div>
 
           <div className="text-center mt-12">

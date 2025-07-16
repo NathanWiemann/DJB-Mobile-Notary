@@ -386,7 +386,7 @@ const Services = () => {
 
             <div className="bg-white rounded-xl p-6 shadow-lg">
               <h3 className="text-lg font-bold text-gray-900 mb-3">Travel Fee</h3>
-              <p className="text-3xl font-bold text-teal-800 mb-2">$45</p>
+              <p className="text-3xl font-bold text-teal-800 mb-2">$55</p>
               <p className="text-gray-600 text-sm">Within 15 miles (may vary)</p>
             </div>
 
