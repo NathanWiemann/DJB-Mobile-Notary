@@ -39,7 +39,7 @@ export const blog: BlogPost = {
   author: "Berks County Notary Services",
   category: "Notary Tips",
   readTime: "3 min read",
-  image: "./Blog%20Images/what-to-bring-to-a-notary-appointment.webp",
+  image: "/Blog Images/what-to-bring-to-a-notary-appointment.webp",
   tags: [
     "notary appointment Reading PA",
     "Reading Pennsylvania notary",
