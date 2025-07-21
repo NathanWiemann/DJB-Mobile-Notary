@@ -1,4 +1,4 @@
-import type { BlogPost } from './understanding-notarization';
+import type { BlogPost } from './blogpost.ts';
 
 // Dynamic import function to load all blog posts
 async function loadBlogPosts(): Promise<BlogPost[]> {
