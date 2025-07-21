@@ -115,11 +115,20 @@ const Header = () => {
 
         {/* Mobile Phone Number */}
         <div className="md:hidden pb-4">
-          <div className="flex items-center justify-center space-x-2 text-teal-800">
+          <div className="flex items-center justify-center space-x-2 text-teal-800 mb-3">
             <Phone className="h-5 w-5" />
             <a href="tel:+19146198328" className="text-lg font-semibold">
               (914) 619-8328
             </a>
+          </div>
+          <div className="flex justify-center">
+            <Link
+              to="/contact"
+              className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+              aria-label="Schedule an appointment"
+            >
+              Schedule Appointment
+            </Link>
           </div>
         </div>
       </div>
@@ -160,26 +169,8 @@ const Header = () => {
         {/* Scrollable Menu Content */}
         <div className="flex-1 overflow-y-auto">
           <div className="p-6">
-            {/* Menu Items */}
-            <nav className="space-y-2 mb-8">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={closeMenu}
-                  className={`block px-4 py-3 rounded-lg font-medium transition-colors ${
-                    isActive(item.path)
-                      ? 'bg-teal-100 text-teal-800 border-l-4 border-teal-800'
-                      : 'text-gray-800 hover:bg-gray-100 hover:text-teal-800'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-
-            {/* Contact Info in Menu */}
-            <div className="pt-8 border-t border-gray-200">
+            {/* Contact Info in Menu - Moved to top */}
+            <div className="mb-8">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <Phone className="h-5 w-5 text-teal-800" />
@@ -196,11 +187,29 @@ const Header = () => {
               <Link
                 to="/contact"
                 onClick={closeMenu}
-                className="mt-6 w-full bg-amber-500 hover:bg-amber-600 text-white py-3 px-4 rounded-lg font-semibold transition-colors block text-center"
+                className="mt-4 w-full bg-amber-500 hover:bg-amber-600 text-white py-3 px-4 rounded-lg font-semibold transition-colors block text-center"
               >
                 Schedule Appointment
               </Link>
             </div>
+
+            {/* Menu Items */}
+            <nav className="space-y-2">
+              {menuItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={closeMenu}
+                  className={`block px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive(item.path)
+                      ? 'bg-teal-100 text-teal-800 border-l-4 border-teal-800'
+                      : 'text-gray-800 hover:bg-gray-100 hover:text-teal-800'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
           </div>
         </div>
       </div>

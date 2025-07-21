@@ -81,13 +81,11 @@ const Home = () => {
 
             {/* Image */}
             <div className="relative">
-              <div className="bg-white rounded-2xl shadow-2xl p-2 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                <img 
-                  src="/daniel-bolanos-notary-profile-photo-bridge copy.webp" 
-                  alt="Daniel J. Bolanos - Professional Mobile Notary" 
-                  className="w-full h-96 object-cover rounded-xl"
-                />
-              </div>
+              <img 
+                src="/daniel-bolanos-notary-profile-photo-bridge copy.webp" 
+                alt="Daniel J. Bolanos - Professional Mobile Notary" 
+                className="w-full h-auto object-cover rounded-2xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300"
+              />
               
               {/* Logo Badge - No shadow */}
               <div className="absolute -top-10 -right-10">
@@ -110,7 +108,7 @@ const Home = () => {
               <img 
                 src="/daniel-bolanos-mobile-notary-outdoor-photo.png" 
                 alt="Daniel J. Bolanos providing professional notary services" 
-                className="w-full max-w-md mx-auto h-[500px] object-cover object-[center_-90px] rounded-2xl shadow-xl"
+                className="w-full max-w-md mx-auto h-auto object-cover rounded-2xl shadow-xl"
               />
             </div>
 
@@ -263,7 +261,7 @@ const Home = () => {
               <img 
                 src="/daniel-bolanos-traveling-notary-photo-rome.png" 
                 alt="Daniel J. Bolanos - Professional Mobile Notary" 
-                className="w-full max-w-md mx-auto h-[500px] object-cover object-[center_-80px] rounded-2xl shadow-xl"
+                className="w-full max-w-md mx-auto h-auto object-cover rounded-2xl shadow-xl"
               />
             </div>
           </div>
