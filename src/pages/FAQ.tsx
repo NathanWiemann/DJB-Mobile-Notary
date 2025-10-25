@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, ChevronUp, HelpCircle, Phone, Clock, Shield, FileText, DollarSign, MapPin } from 'lucide-react';
+import { ChevronDown, ChevronUp, HelpCircle, Phone, Clock, Shield, FileText, DollarSign, MapPin, Mail } from 'lucide-react';
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState<number[]>([]);
