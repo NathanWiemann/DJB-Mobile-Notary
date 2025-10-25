@@ -289,15 +289,11 @@ const FAQ = () => {
             </div>
 
             <div className="bg-amber-50 rounded-xl p-6">
-                className="bg-white hover:bg-gray-100 text-teal-800 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 transform hover:scale-105"
-                aria-label="Schedule an appointment"
+              <Mail className="h-8 w-8 text-amber-600 mx-auto mb-4" />
               <h3 className="text-lg font-bold text-gray-900 mb-3">Schedule Consultation</h3>
-              <Link 
+              <Link
                 to="/contact"
-                className="text-teal-800 font-semibold hover:text-teal-700 transition-colors underline"
-                className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 transform hover:scale-105"
-                className="bg-teal-700 hover:bg-teal-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 transform hover:scale-105"
-                aria-label="Learn more about notary services"
+                className="text-amber-600 font-semibold text-xl hover:text-amber-700 transition-colors"
               >
                 Contact Form →
               </Link>
