@@ -33,8 +33,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }} # usually 21
           protocol: ftps # matches SmartFTP “FTPS (Explicit)”
-          local-dir: dist # Vite build output
-          server-dir: /domains/djb-mobile-notary.com/public_html
+          local-dir: ./dist/ # Vite build output
+          server-dir: /domains/djb-mobile-notary.com/public_html/
           exclude: |
             **/cms/**
             **/.git/**
