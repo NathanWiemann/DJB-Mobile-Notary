@@ -1,14 +1,16 @@
 // src/api/wpClient.ts
 const WP_API_BASE = 'https://djb-mobile-notary.com/cms/wp-json';
 
-type WpPage = {
+// ---------- Types ----------
+
+export type WpPage = {
   id: number;
   slug: string;
   title: { rendered: string };
-  acf: any; // can be narrowed later per page if you want
+  acf: any; // narrowed elsewhere
 };
 
-type WpService = {
+export type WpService = {
   id: number;
   title: { rendered: string };
   acf: {
@@ -18,7 +20,7 @@ type WpService = {
   };
 };
 
-type WpBenefit = {
+export type WpBenefit = {
   id: number;
   title: { rendered: string };
   acf: {
@@ -27,7 +29,7 @@ type WpBenefit = {
   };
 };
 
-type WpFaq = {
+export type WpFaq = {
   id: number;
   title: { rendered: string };
   acf: {
@@ -35,10 +37,10 @@ type WpFaq = {
   };
 };
 
-// -------------------------------------------------------------
-// Helper: keep ACF relationship order (featured_services, etc.)
-// -------------------------------------------------------------
+// ---------- Helper: keep order from Relationship fields ----------
+
 function sortByIdOrder<T extends { id: number }>(items: T[], ids: number[]): T[] {
+  // map: postId -> index in the Relationship field
   const orderMap = new Map<number, number>(
     ids.map((id, index) => [id, index])
   );
@@ -50,9 +52,9 @@ function sortByIdOrder<T extends { id: number }>(items: T[], ids: number[]): T[]
   });
 }
 
-// -------------------------------------------------------------
+// ---------- Fetchers ----------
+
 // Fetch the Home page with all ACF fields
-// -------------------------------------------------------------
 export async function fetchHomePage(): Promise<WpPage> {
   const res = await fetch(
     `${WP_API_BASE}/wp/v2/pages?slug=home&acf_format=standard`
@@ -67,58 +69,47 @@ export async function fetchHomePage(): Promise<WpPage> {
     throw new Error('Home page not found');
   }
 
-  // json[0] is the page with slug "home"
-  return json[0] as WpPage;
+  return json[0];
 }
 
-// -------------------------------------------------------------
-// Fetch multiple Service posts by ID
-// -------------------------------------------------------------
+// Services by IDs (keeps order from ACF Relationship)
 export async function fetchServicesByIds(ids: number[]): Promise<WpService[]> {
   if (!ids || ids.length === 0) return [];
 
-  const res = await fetch(
-    `${WP_API_BASE}/wp/v2/service?acf_format=standard&include=${ids.join(',')}`
-  );
-  if (!res.ok) {
-    throw new Error('Failed to fetch services');
-  }
+  const url = `${WP_API_BASE}/wp/v2/service` +
+    `?acf_format=standard&include=${ids.join(',')}&orderby=include`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to fetch services');
 
   const data: WpService[] = await res.json();
-  // Ensure the order matches the ACF relationship field order
-  return sortByIdOrder<WpService>(data, ids);
+  return sortByIdOrder(data, ids);
 }
 
-// -------------------------------------------------------------
-// Fetch multiple Benefit posts by ID
-// -------------------------------------------------------------
+// Benefits by IDs (keeps order)
 export async function fetchBenefitsByIds(ids: number[]): Promise<WpBenefit[]> {
   if (!ids || ids.length === 0) return [];
 
-  const res = await fetch(
-    `${WP_API_BASE}/wp/v2/benefit?acf_format=standard&include=${ids.join(',')}`
-  );
-  if (!res.ok) {
-    throw new Error('Failed to fetch benefits');
-  }
+  const url = `${WP_API_BASE}/wp/v2/benefit` +
+    `?acf_format=standard&include=${ids.join(',')}&orderby=include`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to fetch benefits');
 
   const data: WpBenefit[] = await res.json();
-  return sortByIdOrder<WpBenefit>(data, ids);
+  return sortByIdOrder(data, ids);
 }
 
-// -------------------------------------------------------------
-// Fetch multiple FAQ posts by ID
-// -------------------------------------------------------------
+// FAQs by IDs (keeps order)
 export async function fetchFaqsByIds(ids: number[]): Promise<WpFaq[]> {
   if (!ids || ids.length === 0) return [];
 
-  const res = await fetch(
-    `${WP_API_BASE}/wp/v2/faq?acf_format=standard&include=${ids.join(',')}`
-  );
-  if (!res.ok) {
-    throw new Error('Failed to fetch FAQs');
-  }
+  const url = `${WP_API_BASE}/wp/v2/faq` +
+    `?acf_format=standard&include=${ids.join(',')}&orderby=include`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to fetch FAQs');
 
   const data: WpFaq[] = await res.json();
-  return sortByIdOrder<WpFaq>(data, ids);
+  return sortByIdOrder(data, ids);
 }

@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /cms/
 Allow: /
 
 Sitemap: https://djb-mobile-notary.com/sitemap.xml

@@ -84,6 +84,40 @@ const Home = () => {
 
         const acf = page.acf || {};
 
+        // Yoast SEO fields (if plugin is active)
+        const yoast = page.yoast_head_json || null;
+        
+        // Apply Yoast SEO data to document <head>
+        if (yoast && typeof document !== 'undefined') {
+          // 1) <title>
+          if (yoast.title) {
+          document.title = yoast.title;
+        }
+
+          // 2) <meta name="description">
+        if (yoast.description) {
+          let meta = document.querySelector('meta[name="description"]');
+          if (!meta) {
+              meta = document.createElement('meta');
+              meta.setAttribute('name', 'description');
+              document.head.appendChild(meta);
+            }
+            meta.setAttribute('content', yoast.description);
+          }
+
+          // 3) <link rel="canonical">
+          if (yoast.canonical) {
+            let link = document.querySelector('link[rel="canonical"]');
+            if (!link) {
+              link = document.createElement('link');
+              link.setAttribute('rel', 'canonical');
+              document.head.appendChild(link);
+            }
+            link.setAttribute('href', yoast.canonical);
+          }
+        }
+
+
         // 2) Extract relationship IDs
         const serviceIds = extractIds(acf.featured_services);
         const benefitIds = extractIds(acf.featured_benefits);
