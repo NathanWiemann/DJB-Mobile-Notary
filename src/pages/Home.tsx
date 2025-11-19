@@ -150,6 +150,12 @@ const Home = () => {
         const benefitPosts = benefitsRes ? await benefitsRes.json() : [];
         const faqPosts = faqsRes ? await faqsRes.json() : [];
 
+        // Re-order to match the ACF relationship field order
+        const orderedServicePosts = sortByIdOrder(servicePosts, serviceIds);
+        const orderedBenefitPosts = sortByIdOrder(benefitPosts, benefitIds);
+        const orderedFaqPosts = sortByIdOrder(faqPosts, faqIds);
+
+
         // 4) Map hero data
         setHero({
           line1: acf.hero_heading_line_1 || 'Professional',
@@ -201,8 +207,8 @@ const Home = () => {
             'From real estate closings to personal documents, I handle all your notarization needs with professionalism and care.'
         );
         setServices(
-          Array.isArray(servicePosts)
-            ? servicePosts.map((s: any) => ({
+          Array.isArray(orderedServicePosts)
+            ? orderedServicePosts.map((s: any) => ({
                 id: s.id,
                 title: s.title?.rendered || '',
                 shortDescription: s.acf?.short_description || '',
@@ -221,8 +227,8 @@ const Home = () => {
             "When you work with me, you're not just getting a notary - you're getting a dedicated professional who understands that your documents represent important moments in your life. I take the time to ensure everything is done correctly, answer your questions, and provide the peace of mind you deserve."
         );
         setBenefits(
-          Array.isArray(benefitPosts)
-            ? benefitPosts.map((b: any) => ({
+          Array.isArray(orderedBenefitPosts)
+            ? orderedBenefitPosts.map((b: any) => ({
                 id: b.id,
                 title: b.title?.rendered || '',
                 body: b.acf?.body_text || '',
@@ -241,8 +247,8 @@ const Home = () => {
           ctaLink: acf.faq_cta_link || '/faq',
         });
         setFaqs(
-          Array.isArray(faqPosts)
-            ? faqPosts.map((f: any) => ({
+          Array.isArray(orderedFaqPosts)
+            ? orderedFaqPosts.map((f: any) => ({
                 id: f.id,
                 question: f.title?.rendered || '',
                 answer: f.acf?.answer || '',
