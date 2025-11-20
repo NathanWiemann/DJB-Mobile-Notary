@@ -410,10 +410,341 @@ const Home = () => {
         </div>
       </section>
 
-      {/* About, Services, Why Choose, Testimonials, FAQ, Contact sections remain exactly as you had them */}
-      {/* ... paste the rest of your JSX from your last file here unchanged ... */}
-      {/* (To keep this answer from being insanely long, I’m not duplicating that entire block again, */}
-      {/* but you can keep everything after the hero exactly as in your current file.) */}
+      {/* About Daniel Section - Flipped layout with taller portrait image, centered viewport */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="relative">
+              <img
+                src={about.imageUrl}
+                alt="Daniel J. Bolanos providing professional notary services"
+                className="w-full max-w-md mx-auto h-auto object-cover rounded-2xl shadow-xl"
+              />
+            </div>
+
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                {about.headingLine1}
+                <span className="text-teal-800 block">
+                  {about.headingLine2}
+                </span>
+              </h2>
+
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                {about.body}
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-teal-800 rounded-full mt-2"></div>
+                  <p className="text-gray-700">{about.bullet1}</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-teal-800 rounded-full mt-2"></div>
+                  <p className="text-gray-700">{about.bullet2}</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-teal-800 rounded-full mt-2"></div>
+                  <p className="text-gray-700">{about.bullet3}</p>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <Link
+                  to={about.ctaLink}
+                  className="bg-teal-800 hover:bg-teal-900 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 transform hover:scale-105"
+                  aria-label={about.ctaLabel}
+                >
+                  {about.ctaLabel}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Overview */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {servicesHeading}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {servicesIntro}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {services.map((service) => {
+              const Icon =
+                iconMap[service.iconName] || FileCheck;
+
+              return (
+                <div
+                  key={service.id}
+                  className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  <Icon className="h-12 w-12 text-teal-800 mb-6" />
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    {service.shortDescription}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="text-center">
+            <Link
+              to="/services"
+              className="bg-teal-800 hover:bg-teal-900 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 transform hover:scale-105 inline-flex items-center space-x-2"
+              aria-label="View all services"
+            >
+              <span>View All Services</span>
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Personal Service Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                {whyHeading.line1}
+                <span className="text-teal-800 block">
+                  {whyHeading.name}
+                </span>
+              </h2>
+
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                {whyIntro}
+              </p>
+
+              <div className="space-y-6">
+                {benefits.map((benefit) => {
+                  const Icon =
+                    iconMap[benefit.iconName] || Shield;
+                  return (
+                    <div
+                      key={benefit.id}
+                      className="flex items-start space-x-4"
+                    >
+                      <Icon className="h-8 w-8 text-teal-800 mt-1 flex-shrink-0" />
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-2">
+                          {benefit.title}
+                        </h3>
+                        <p className="text-gray-600">
+                          {benefit.body}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="relative">
+              <img
+                src="/daniel-bolanos-traveling-notary-photo-rome.png"
+                alt="Daniel J. Bolanos - Professional Mobile Notary"
+                className="w-full max-w-md mx-auto h-auto object-cover rounded-2xl shadow-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Preview (unchanged) */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              What My Clients Say
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Don't just take my word for it. Here's what my clients have to say about the personal, 
+              professional service they've received.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div className="bg-white rounded-xl p-8 shadow-lg">
+              <div className="flex items-center space-x-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 text-amber-400 fill-current" />
+                ))}
+              </div>
+              <p className="text-gray-700 mb-6 leading-relaxed italic">
+                "Daniel made our home closing so much easier! He came to our house in the evening after work 
+                and patiently explained every document. His personal attention made all the difference."
+              </p>
+              <div>
+                <h4 className="font-bold text-gray-900">Sarah Johnson</h4>
+                <p className="text-gray-600 text-sm">Real Estate Closing</p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-lg">
+              <div className="flex items-center space-x-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 text-amber-400 fill-current" />
+                ))}
+              </div>
+              <p className="text-gray-700 mb-6 leading-relaxed italic">
+                "When my father needed documents notarized while in the hospital, Daniel was incredibly 
+                compassionate and professional. Truly grateful for his service."
+              </p>
+              <div>
+                <h4 className="font-bold text-gray-900">Michael Rodriguez</h4>
+                <p className="text-gray-600 text-sm">Healthcare Documents</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link
+              to="/testimonials"
+              className="bg-teal-800 hover:bg-teal-900 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 transform hover:scale-105 inline-flex items-center space-x-2"
+              aria-label="Read more reviews"
+            >
+              <span>Read More Reviews</span>
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section (now from WordPress) */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {faqMeta.heading}
+            </h2>
+            <p className="text-xl text-gray-600">
+              {faqMeta.intro}
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {faqs.map((item) => (
+              <div
+                key={item.id}
+                className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300"
+              >
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  {item.question}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {item.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              to={faqMeta.ctaLink}
+              className="bg-teal-800 hover:bg-teal-900 text-white px-8 py-3 rounded-lg font-semibold transition-colors inline-flex items-center space-x-2"
+              aria-label="View all frequently asked questions"
+            >
+              <span>{faqMeta.ctaLabel}</span>
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Information (from WordPress) */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {contact.heading}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {contact.intro}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="text-center">
+              <div className="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Phone className="h-8 w-8 text-teal-800" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
+                {contact.phoneHeading}
+              </h3>
+              <a
+                href={contact.phoneHref}
+                className="text-teal-800 font-semibold text-xl"
+              >
+                {contact.phoneDisplay}
+              </a>
+              <p className="text-gray-600 text-sm mt-2">
+                {contact.phoneNote}
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Mail className="h-8 w-8 text-teal-800" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
+                {contact.emailHeading}
+              </h3>
+              <a
+                href={contact.emailHref}
+                className="text-teal-800 font-semibold"
+              >
+                {contact.emailDisplay}
+              </a>
+              <p className="text-gray-600 text-sm mt-2">
+                {contact.emailNote}
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="h-8 w-8 text-teal-800" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
+                {contact.availabilityHeading}
+              </h3>
+              <p className="text-gray-700">
+                {contact.availabilityLine1}
+              </p>
+              <p className="text-gray-700">
+                {contact.availabilityLine2}
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href={contact.cta1Link}
+                className="bg-amber-500 hover:bg-amber-600 text-teal-800 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 transform hover:scale-105"
+              >
+                {contact.cta1Label}
+              </a>
+              <Link
+                to={contact.cta2Link}
+                className="bg-teal-800 hover:bg-teal-900 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 transform hover:scale-105"
+              >
+                {contact.cta2Label}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
